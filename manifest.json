@@ -1,6 +1,6 @@
 {
   "name": "@vkng1104/publish-npm-pkg",
-  "version": "unreleased",
+  "version": "1.0.2-beta.1",
   "language": "JavaScript",
   "release_strategy": "master"
 }
