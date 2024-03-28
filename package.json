@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/vkng1104/publish-npm-pkg/issues"
   },
-  "homepage": "https://github.com/vkng1104/publish-npm-pkg#readme"
+  "homepage": "https://github.com/vkng1104/publish-npm-pkg#readme",
+  "dependencies": {
+    "is-number": "^7.0.0"
+  }
 }
