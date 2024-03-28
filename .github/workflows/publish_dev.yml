@@ -1,7 +1,15 @@
-name: Publish Package
+name: Publish Package to npmjs
 
 on:
+  release:
+    types: [created]
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        required: false
+        default: '18.x'
 
 env:
   ENVIRONMENT: dev
@@ -77,8 +85,11 @@ jobs:
   build:
     needs: pre-release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     permissions:
-      contents: "read"
+      contents: read
       id-token: write
 
     steps:
@@ -98,25 +109,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
-          scope: '@vkng1104'
+          scope: "@vkng1104"
 
       - name: Install dependencies
-        run: yarn
+        run: CI=true yarn install
 
       - name: Publish to npm registry
-        run: yarn publish --access public
+        run: yarn publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
-
-      - name: Setup .npmrc for GitHub Packages
-        run: echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-
-      - name: Publish to GitHub Packages
-        run: yarn publish --registry=https://npm.pkg.github.com/
-        env:
-          NODE_AUTH_TOKEN: ${{ env.GITHUB_TOKEN }}
 
       - name: "Extract Git info"
         run: |
