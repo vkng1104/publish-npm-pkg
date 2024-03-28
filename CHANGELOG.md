@@ -1,5 +1,8 @@
 # Changelog
 
+## 2024-03-29 - v1.0.2-beta.1
+- Update pre-release beta v2
+
 ## 2024-03-29 - v1.0.1-beta.1
 - Update pre-release beta
 
