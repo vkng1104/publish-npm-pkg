@@ -1,5 +1,7 @@
-function helloNpm() {
-  return "hello NPM";
+import isNumber from 'is-number'
+
+function checkNumber(a) {
+  return isNumber(a);
 }
 
-export default helloNpm;
+export default checkNumber;
